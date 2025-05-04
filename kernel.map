@@ -1,0 +1,107 @@
+             VMA              LMA     Size Align Out     In      Symbol
+               0                0 40200000     1 . = 0x40200000
+        40200000                0        0     1 __kernel_base = .
+        40200000         40200000      d14     4 .text
+        40200000         40200000       10     4         /tmp/kernel-41d8a1.o:(.text.boot)
+        40200000         40200000        0     1                 $x.1
+        40200000         40200000       10     1                 boot
+        40200010         40200010      900     4         /tmp/kernel-41d8a1.o:(.text)
+        40200010         40200010        0     1                 $x.0
+        40200010         40200010       1c     1                 uboot_call
+        4020002c         4020002c       24     1                 putchar
+        40200050         40200050       68     1                 alloc_pages
+        402000b8         402000b8      248     1                 map_page
+        40200300         40200300       44     1                 switch_context
+        40200344         40200344       18     1                 delay
+        4020035c         4020035c       44     1                 mmu_enable
+        402003a0         402003a0      260     1                 yield
+        40200600         40200600       3c     1                 proc_a_entry
+        4020063c         4020063c       3c     1                 proc_b_entry
+        40200678         40200678       24     1                 user_entry
+        4020069c         4020069c      244     1                 create_process
+        402008e0         402008e0       30     1                 kernel_main
+        40200910         40200910      404     4         /tmp/common-6cc993.o:(.text)
+        40200910         40200910        0     1                 $x.0
+        40200910         40200910       c8     1                 memcpy
+        402009d8         402009d8       a0     1                 memset
+        40200a78         40200a78       28     1                 strcpy
+        40200aa0         40200aa0       30     1                 strcmp
+        40200ad0         40200ad0      244     1                 printf
+        40200d20         40200d20       ed    16 .rodata
+        40200d20         40200d20       ed     1         <internal>:(.rodata.str1.1)
+        40200e10         40200e10    10448    16 .data
+        40200e10         40200e10        8     8         /tmp/kernel-41d8a1.o:(.data)
+        40200e10         40200e10        8     1                 alloc_pages.next_paddr
+        40200e10         40200e10        0     1                 $d.2
+        40200e18         40200e18    10440     1         shell.bin.o:(.data)
+        40200e18         40200e18        0     1                 _binary_shell_bin_start
+        40211258         40211258        0     1                 _binary_shell_bin_end
+        40211260         40211260    10128    16 .bss
+        40211260         40211260        0     1         __bss = .
+        40211260         40211260    10128    16         /tmp/kernel-41d8a1.o:(.bss)
+        40211260         40211260        0     1                 $d.4
+        40211260         40211260        8     1                 idle_proc
+        40211270         40211270    10100     1                 procs
+        40221370         40221370        8     1                 current_proc
+        40221378         40221378        8     1                 proc_a
+        40221380         40221380        8     1                 proc_b
+        40221388         40221388        0     1         __bss_end = .
+        40221388         40221388        8     1 . = ALIGN ( 16 )
+        40221390         40221390    20000     1 . += 128 * 1024
+        40241390         40241390        0     1 __stack_top = .
+        40241390         40241390      c70     1 . = ALIGN ( 4096 )
+        40242000         40242000        0     1 __free_ram = .
+        40242000         40242000  2000000     1 . += 32 * 1024 * 1024
+        42242000         42242000        0     1 __free_ram_end = .
+               0                0      6f0     1 .debug_loclists
+               0                0      554     1         /tmp/kernel-41d8a1.o:(.debug_loclists)
+               0                0        0     1                 $d.5
+             554              554      19c     1         /tmp/common-6cc993.o:(.debug_loclists)
+             554              554        0     1                 $d.2
+               0                0      43e     1 .debug_abbrev
+               0                0      2da     1         /tmp/kernel-41d8a1.o:(.debug_abbrev)
+               0                0        0     1                 $d.6
+             2da              2da      164     1         /tmp/common-6cc993.o:(.debug_abbrev)
+             2da              2da        0     1                 $d.3
+               0                0      ab0     1 .debug_info
+               0                0      856     1         /tmp/kernel-41d8a1.o:(.debug_info)
+               0                0        0     1                 $d.7
+             856              856      25a     1         /tmp/common-6cc993.o:(.debug_info)
+             856              856        0     1                 $d.4
+               0                0      10f     1 .debug_rnglists
+               0                0       c7     1         /tmp/kernel-41d8a1.o:(.debug_rnglists)
+               0                0        0     1                 $d.8
+              c7               c7       48     1         /tmp/common-6cc993.o:(.debug_rnglists)
+              c7               c7        0     1                 $d.5
+               0                0      200     1 .debug_str_offsets
+               0                0      148     1         /tmp/kernel-41d8a1.o:(.debug_str_offsets)
+               0                0        0     1                 $d.9
+             148              148       b8     1         /tmp/common-6cc993.o:(.debug_str_offsets)
+             148              148        0     1                 $d.6
+               0                0      388     1 .debug_str
+               0                0      388     1         <internal>:(.debug_str)
+               0                0      268     1 .debug_addr
+               0                0      1f8     1         /tmp/kernel-41d8a1.o:(.debug_addr)
+               0                0        0     1                 $d.11
+             1f8              1f8       70     1         /tmp/common-6cc993.o:(.debug_addr)
+             1f8              1f8        0     1                 $d.8
+               0                0       42     1 .comment
+               0                0       42     1         <internal>:(.comment)
+               0                0      298     8 .debug_frame
+               0                0      1f0     8         /tmp/kernel-41d8a1.o:(.debug_frame)
+               0                0        0     1                 $d.13
+             1f0              1f0       a8     8         /tmp/common-6cc993.o:(.debug_frame)
+             1f0              1f0        0     1                 $d.10
+               0                0      662     1 .debug_line
+               0                0      45a     1         /tmp/kernel-41d8a1.o:(.debug_line)
+               0                0        0     1                 $d.14
+             45a              45a      208     1         /tmp/common-6cc993.o:(.debug_line)
+             45a              45a        0     1                 $d.11
+               0                0       5a     1 .debug_line_str
+               0                0       5a     1         <internal>:(.debug_line_str)
+               0                0      630     8 .symtab
+               0                0      630     8         <internal>:(.symtab)
+               0                0       ca     1 .shstrtab
+               0                0       ca     1         <internal>:(.shstrtab)
+               0                0      22e     1 .strtab
+               0                0      22e     1         <internal>:(.strtab)

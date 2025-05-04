@@ -1,0 +1,38 @@
+
+
+U-Boot 2024.01+dfsg-1ubuntu5.1 (Aug 06 2024 - 08:41:28 +0000)
+
+DRAM:  128 MiB
+Core:  51 devices, 14 uclasses, devicetree: board
+Flash: 64 MiB
+Loading Environment from Flash... *** Warning - bad CRC, using default environment
+
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
+No working controllers found
+Net:   eth0: virtio-net#32
+starting USB...
+No working controllers found
+Hit any key to stop autoboot:  2  0 
+=> go 0x40200000
+## Starting application at 0x40200000 ...
+QEMU 8.2.2 monitor - type 'help' for more information
+(qemu) i[K[Din[K[D[Dinf[K[D[D[Dinfo[K[D[D[D[Dinfo [K[D[D[D[D[Dinfo[K[D[D[D[Dinf[K[D[D[Din[K[D[Di[K[D[Kx[K[Dxp[K[D[Dxp [K[D[D[Dxp /[K[D[D[D[Dxp /x[K[D[D[D[D[Dxp /x [K[D[D[D[D[D[Dxp /x 0[K[D[D[D[D[D[D[Dxp /x 0x[K[D[D[D[D[D[D[D[Dxp /x 0x4[K[D[D[D[D[D[D[D[D[Dxp /x 0x40[K[D[D[D[D[D[D[D[D[D[Dxp /x 0x402[K[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x4023[K[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x40236[K[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x402360[K[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x4023600[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x40236000[K
+0000000040236000: 0x00000000
+(qemu) x[K[Dxp[K[D[Dxp [K[D[D[Dxp /[K[D[D[D[Dxp /x[K[D[D[D[D[Dxp /x [K[D[D[D[D[D[Dxp /x 0[K[D[D[D[D[D[D[Dxp /x 0x[K[D[D[D[D[D[D[D[Dxp /x 0x4[K[D[D[D[D[D[D[D[D[Dxp /x 0x40[K[D[D[D[D[D[D[D[D[D[Dxp /x 0x402[K[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x4020[K[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x40204[K[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x40204e[K[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x40204e5[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x40204e50[K
+0000000040204e50: 0x00000003
+(qemu) xp /x 0x40204e50[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /x 0x40236000[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /1x 0x40236000[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x40236000[K[D[D[D[D[D[D[D[D[D[D[D[D
+0000000040236000: 0x00000000 0x00000000 0x4023a003 0x00000000
+0000000040236010: 0x00000000 0x00000000 0x00000000 0x00000000
+0000000040236020: 0x00000000 0x00000000
+(qemu) x[K[Dxp[K[D[Dxp [K[D[D[Dxp /[K[D[D[D[Dxp /1[K[D[D[D[D[Dxp /10[K[D[D[D[D[D[Dxp /10x[K[D[D[D[D[D[D[Dxp /10x [K[D[D[D[D[D[D[D[Dxp /10x 0[K[D[D[D[D[D[D[D[D[Dxp /10x 0x[K[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4[K[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x40[K[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x402[K[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4023[K[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4023a[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4023a0[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4023a00[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4023a004[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4023a00[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x4023a003[K
+000000004023a003: 0x00000000 0x3ff40300 0x00000040 0x7ff40300
+000000004023a013: 0x00000040 0x7ff40300 0x00000040 0xbff40300
+000000004023a023: 0x00000040 0xbff40300
+(qemu) p[K[D[Kx[K[Dxp[K[D[Dxp [K[D[D[Dxp 1[K[D[D[D[Dxp 10[K[D[D[D[D[Dxp 10x[K[D[D[D[D[D[Dxp 10x [K[D[D[D[D[D[D[Dxp 10x[K[D[D[D[D[D[Dxp 10[K[D[D[D[D[Dxp 1[K[D[D[D[Dxp [K[D[D[Dxp /[K[D[D[D[Dxp /1[K[D[D[D[D[Dxp /10[K[D[D[D[D[D[Dxp /10x[K[D[D[D[D[D[D[Dxp /10x [K[D[D[D[D[D[D[D[Dxp /10x 0[K[D[D[D[D[D[D[D[D[Dxp /10x 0x[K[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7[K[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7f[K[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7ff[K[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7ff4[K[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7ff40[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7ff403[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7ff4030[K[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[Dxp /10x 0x7ff40300[K
+000000007ff40300: Cannot access memory
+(qemu) i[K[Din[K[D[Dinf[K[D[D[Dinfo[K[D[D[D[Dinfo [K[D[D[D[D[Dinfo m[K[D[D[D[D[D[Dinfo me[K[D[D[D[D[D[D[Dinfo mem[K
+unknown command: 'info mem'
+(qemu) QEMU: Terminated
+
