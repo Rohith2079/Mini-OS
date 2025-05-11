@@ -309,10 +309,21 @@ void proc_b_entry(void) {
     }
 }
 
-
-void user_entry(void) {
-    PANIC("not yet implemented");
+__attribute__((naked)) void user_entry(void) {
+    __asm__ __volatile__(
+        "msr elr_el1, %0         \n"
+        "msr spsr_el1, %1        \n"
+        "mrs x1, elr_el1\n"
+        "mrs x2, spsr_el1\n"
+        "eret                    \n"
+        :
+        : "r"(USER_BASE), "r"(SPSR_MASK)
+    );
 }
+
+//void user_entry(void) {
+//    PANIC("not yet implemented");
+//}
 
 struct process *create_process(const void *image, size_t image_size) {
     /* omitted */
@@ -346,12 +357,17 @@ struct process *create_process(const void *image, size_t image_size) {
     *--sp = 0;    // x20
     *--sp = 0;    // x19
 
+    if ((uint64_t)sp % 16 != 0) {
+        *--sp = 0; // padding
+    }
+
     uint32_t *page_table = (uint32_t *) alloc_pages(1);
 
     // Map kernel pages.
     for (paddr_t paddr = (paddr_t) __kernel_base;
          paddr < (paddr_t) __free_ram_end; paddr += PAGE_SIZE)
         map_page(page_table, paddr, paddr, AARCH64_PAGE_READ | AARCH64_PAGE_WRITE | AARCH64_PAGE_EXECUTE);
+    printf("Kernel pages mapped\n");
 
 
     // Map user pages.
@@ -366,7 +382,14 @@ struct process *create_process(const void *image, size_t image_size) {
         // Fill and map the page.
         memcpy((void *) page, image + off, copy_size);
         map_page(page_table, USER_BASE + off, page, AARCH64_PAGE_USER | AARCH64_PAGE_READ | AARCH64_PAGE_WRITE | AARCH64_PAGE_EXECUTE);
+        //printf("User page mapped: %x -> %x\n", USER_BASE + off, page);
     }
+    proc->pid = i + 1;
+    proc->state = PROC_RUNNABLE;
+    proc->sp = (uint64_t)sp;
+    proc->page_table = page_table;
+
+    return proc;
 }
 
 
@@ -404,14 +427,19 @@ void kernel_main(void) {
 	////proc_a_entry();
 	//yield();
 
+    printf("Creating process : A\n");
 	idle_proc = create_process(NULL, 0); // updated!
     idle_proc->pid = 0; // idle
     current_proc = idle_proc;
 
     // new!
+    printf("Creating process : user\n");
     create_process(_binary_shell_bin_start, (size_t) _binary_shell_bin_size);
+    printf("Created process user\n");
 
+    printf("yielding to user process\n");
 	yield();
+    printf("yield done\n");
 
 
 	PANIC("booted\n");

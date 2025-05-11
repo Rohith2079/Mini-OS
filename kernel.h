@@ -115,6 +115,8 @@ struct trap_frame {
 // starting address defined in `user.ld`.
 #define USER_BASE 0x46000000
 
+#define SPSR_MASK 0x3C0  // 0b0000001111000000
+
 
 struct process {
     int pid;             // Process ID
