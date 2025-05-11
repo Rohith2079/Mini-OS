@@ -1,5 +1,6 @@
 #include "user.h"
 #define SYS_PUTCHAR 1
+#define SYS_GETCHAR 2
 
 
 extern char __user_stack_top[];
@@ -27,6 +28,10 @@ uint64_t syscall(uint64_t sysno, uint64_t arg0, uint64_t arg1, uint64_t arg2) {
 
 void putchar(char ch) {
     syscall(SYS_PUTCHAR, ch, 0, 0);
+}
+
+int getchar(void) {
+    return syscall(SYS_GETCHAR, 0, 0, 0);
 }
 
 __attribute__((section(".text.start")))
