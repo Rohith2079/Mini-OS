@@ -1,28 +1,43 @@
 .section .vectors, "ax"
-.align 11
+.align 11  // 2048-byte alignment for ARMv8
 .global _vector_table
 _vector_table:
-    // Exception from EL0 to EL1
-    b sync_el1_handler         // Synchronous exception
-    b irq_el1_handler          // IRQ interrupt
-    b fiq_el1_handler          // FIQ interrupt
-    b serror_el1_handler       // SError interrupt
+    // Current EL with SP0
+    .align 7  // 128-byte alignment for each vector
+    b sync_el1_handler     // Synchronous
+    .align 7
+    b irq_el1_handler      // IRQ/vIRQ
+    .align 7
+    b fiq_el1_handler      // FIQ/vFIQ
+    .align 7
+    b serror_el1_handler   // SError/vSError
 
-    // Exception from EL1 to EL1
-    b sync_el1_handler
-    b irq_el1_handler
-    b fiq_el1_handler
-    b serror_el1_handler
+    // Current EL with SPx
+    .align 7
+    b sync_el1_handler     // Synchronous
+    .align 7
+    b irq_el1_handler      // IRQ/vIRQ
+    .align 7
+    b fiq_el1_handler      // FIQ/vFIQ
+    .align 7
+    b serror_el1_handler   // SError/vSError
 
-    // Exception from EL0 to EL2
-    b sync_el2_handler
-    b irq_el2_handler
-    b fiq_el2_handler
-    b serror_el2_handler
+    // Lower EL using AArch64
+    .align 7
+    b sync_el1_handler     // Synchronous
+    .align 7
+    b irq_el1_handler      // IRQ/vIRQ
+    .align 7
+    b fiq_el1_handler      // FIQ/vFIQ
+    .align 7
+    b serror_el1_handler   // SError/vSError
 
-    // Exception from EL1 to EL2
-    b sync_el2_handler
-    b irq_el2_handler
-    b fiq_el2_handler
-    b serror_el2_handler
-
+    // Lower EL using AArch32
+    .align 7
+    b sync_el1_handler     // Synchronous
+    .align 7
+    b irq_el1_handler      // IRQ/vIRQ
+    .align 7
+    b fiq_el1_handler      // FIQ/vFIQ
+    .align 7
+    b serror_el1_handler   // SError/vSError

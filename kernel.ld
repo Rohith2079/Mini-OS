@@ -3,14 +3,15 @@ ENTRY(boot)
 SECTIONS {
     . = 0x40200000;
 	__kernel_base = .;
-	.vectors : {
-			*(.vectors)
-	} = 0x00
 
     .text :{
         KEEP(*(.text.boot));
         *(.text .text.*);
     }
+
+    .vectors ALIGN(2048) : {
+			*(.vectors)
+	}
 
     .rodata : ALIGN(16) {
         *(.rodata .rodata.*);

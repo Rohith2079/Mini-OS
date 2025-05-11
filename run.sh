@@ -17,7 +17,7 @@ $OBJCOPY -I binary -O elf64-littleaarch64 -B aarch64 shell.bin shell.bin.o
 
 
 $CC $CFLAGS -Wl,-Tkernel.ld -Wl,-Map=kernel.map -o kernel.elf \
-    kernel.c common.c shell.bin.o #vect.s vector_table.s vect.c
+    kernel.c common.c shell.bin.o vect.s vector_table.s vect.c
 
 
 

@@ -1,107 +1,167 @@
              VMA              LMA     Size Align Out     In      Symbol
                0                0 40200000     1 . = 0x40200000
         40200000                0        0     1 __kernel_base = .
-        40200000         40200000      dd4     4 .text
-        40200000         40200000       10     4         /tmp/kernel-982336.o:(.text.boot)
+        40200000         40200000     1120     4 .text
+        40200000         40200000       10     4         /tmp/kernel-852add.o:(.text.boot)
         40200000         40200000        0     1                 $x.1
         40200000         40200000       10     1                 boot
-        40200010         40200010      9c0     4         /tmp/kernel-982336.o:(.text)
+        40200010         40200010      b74     4         /tmp/kernel-852add.o:(.text)
         40200010         40200010        0     1                 $x.0
         40200010         40200010       1c     1                 uboot_call
         4020002c         4020002c       24     1                 putchar
-        40200050         40200050       68     1                 alloc_pages
-        402000b8         402000b8      248     1                 map_page
-        40200300         40200300       44     1                 switch_context
-        40200344         40200344       18     1                 delay
-        4020035c         4020035c       44     1                 mmu_enable
-        402003a0         402003a0      260     1                 yield
-        40200600         40200600       3c     1                 proc_a_entry
-        4020063c         4020063c       3c     1                 proc_b_entry
-        40200678         40200678       1c     1                 user_entry
-        40200694         40200694      288     1                 create_process
-        4020091c         4020091c       b4     1                 kernel_main
-        402009d0         402009d0      404     4         /tmp/common-232767.o:(.text)
-        402009d0         402009d0        0     1                 $x.0
-        402009d0         402009d0       c8     1                 memcpy
-        40200a98         40200a98       a0     1                 memset
-        40200b38         40200b38       28     1                 strcpy
-        40200b60         40200b60       30     1                 strcmp
-        40200b90         40200b90      244     1                 printf
-        40200de0         40200de0      161    16 .rodata
-        40200de0         40200de0      161     1         <internal>:(.rodata.str1.1)
-        40200f50         40200f50    10458    16 .data
-        40200f50         40200f50        8     8         /tmp/kernel-982336.o:(.data)
-        40200f50         40200f50        8     1                 alloc_pages.next_paddr
-        40200f50         40200f50        0     1                 $d.2
-        40200f58         40200f58    10450     1         shell.bin.o:(.data)
-        40200f58         40200f58        0     1                 _binary_shell_bin_start
-        402113a8         402113a8        0     1                 _binary_shell_bin_end
-        402113b0         402113b0    10128    16 .bss
-        402113b0         402113b0        0     1         __bss = .
-        402113b0         402113b0    10128    16         /tmp/kernel-982336.o:(.bss)
-        402113b0         402113b0        0     1                 $d.4
-        402113b0         402113b0        8     1                 idle_proc
-        402113c0         402113c0    10100     1                 procs
-        402214c0         402214c0        8     1                 current_proc
-        402214c8         402214c8        8     1                 proc_a
-        402214d0         402214d0        8     1                 proc_b
-        402214d8         402214d8        0     1         __bss_end = .
-        402214d8         402214d8        8     1 . = ALIGN ( 16 )
-        402214e0         402214e0    20000     1 . += 128 * 1024
-        402414e0         402414e0        0     1 __stack_top = .
-        402414e0         402414e0      b20     1 . = ALIGN ( 4096 )
-        40242000         40242000        0     1 __free_ram = .
-        40242000         40242000  2000000     1 . += 32 * 1024 * 1024
-        42242000         42242000        0     1 __free_ram_end = .
-               0                0      692     1 .debug_loclists
-               0                0      4f6     1         /tmp/kernel-982336.o:(.debug_loclists)
+        40200050         40200050       10     1                 setup_vect
+        40200060         40200060       60     1                 init_exceptions
+        402000c0         402000c0       68     1                 alloc_pages
+        40200128         40200128      248     1                 map_page
+        40200370         40200370       44     1                 switch_context
+        402003b4         402003b4       18     1                 delay
+        402003cc         402003cc       44     1                 mmu_enable
+        40200410         40200410      260     1                 yield
+        40200670         40200670       3c     1                 proc_a_entry
+        402006ac         402006ac       3c     1                 proc_b_entry
+        402006e8         402006e8       1c     1                 user_entry
+        40200704         40200704      288     1                 create_process
+        4020098c         4020098c       f8     1                 handle_trap
+        40200a84         40200a84      100     1                 kernel_main
+        40200b84         40200b84      404     4         /tmp/common-a318ea.o:(.text)
+        40200b84         40200b84        0     1                 $x.0
+        40200b84         40200b84       c8     1                 memcpy
+        40200c4c         40200c4c       a0     1                 memset
+        40200cec         40200cec       28     1                 strcpy
+        40200d14         40200d14       30     1                 strcmp
+        40200d44         40200d44      244     1                 printf
+        40200f88         40200f88       e4     4         /tmp/vect-1f2bd5.o:(.text)
+        40200f88         40200f88        0     1                 $x.0
+        40200f88         40200f88        0     1                 sync_el1_handler
+        40201034         40201034        0     1                 irq_el1_handler
+        4020103c         4020103c        0     1                 fiq_el1_handler
+        40201044         40201044        0     1                 serror_el1_handler
+        4020104c         4020104c        0     1                 sync_el2_handler
+        40201054         40201054        0     1                 irq_el2_handler
+        4020105c         4020105c        0     1                 fiq_el2_handler
+        40201064         40201064        0     1                 serror_el2_handler
+        4020106c         4020106c        0     4         /tmp/vector_table-0b85f1.o:(.text)
+        4020106c         4020106c       b4     4         /tmp/vect-b2c071.o:(.text)
+        4020106c         4020106c        0     1                 $x.0
+        4020106c         4020106c       94     1                 handle_data_abort
+        40201100         40201100        4     1                 handle_sync_el1
+        40201104         40201104        4     1                 handle_irq_el1
+        40201108         40201108        4     1                 handle_fiq_el1
+        4020110c         4020110c        4     1                 handle_serror_el1
+        40201110         40201110        4     1                 handle_sync_el2
+        40201114         40201114        4     1                 handle_irq_el2
+        40201118         40201118        4     1                 handle_fiq_el2
+        4020111c         4020111c        4     1                 handle_serror_el2
+        40201800         40201800      784  2048 .vectors
+        40201800         40201800      784  2048         /tmp/vector_table-0b85f1.o:(.vectors)
+        40201800         40201800        0     1                 $x.0
+        40201800         40201800        0     1                 _vector_table
+        40201f90         40201f90      2f7    16 .rodata
+        40201f90         40201f90      2f7     1         <internal>:(.rodata.str1.1)
+        40202290         40202290    10458    16 .data
+        40202290         40202290        8     8         /tmp/kernel-852add.o:(.data)
+        40202290         40202290        8     1                 alloc_pages.next_paddr
+        40202290         40202290        0     1                 $d.3
+        40202298         40202298    10450     1         shell.bin.o:(.data)
+        40202298         40202298        0     1                 _binary_shell_bin_start
+        402126e8         402126e8        0     1                 _binary_shell_bin_end
+        402126f0         402126f0    10128    16 .bss
+        402126f0         402126f0        0     1         __bss = .
+        402126f0         402126f0    10128    16         /tmp/kernel-852add.o:(.bss)
+        402126f0         402126f0        0     1                 $d.4
+        402126f0         402126f0        8     1                 idle_proc
+        40212700         40212700    10100     1                 procs
+        40222800         40222800        8     1                 current_proc
+        40222808         40222808        8     1                 proc_a
+        40222810         40222810        8     1                 proc_b
+        40222818         40222818        0     1         __bss_end = .
+        40222818         40222818        8     1 . = ALIGN ( 16 )
+        40222820         40222820    20000     1 . += 128 * 1024
+        40242820         40242820        0     1 __stack_top = .
+        40242820         40242820      7e0     1 . = ALIGN ( 4096 )
+        40243000         40243000        0     1 __free_ram = .
+        40243000         40243000  2000000     1 . += 32 * 1024 * 1024
+        42243000         42243000        0     1 __free_ram_end = .
+               0                0      7bd     1 .debug_loclists
+               0                0      5e6     1         /tmp/kernel-852add.o:(.debug_loclists)
                0                0        0     1                 $d.5
-             4f6              4f6      19c     1         /tmp/common-232767.o:(.debug_loclists)
-             4f6              4f6        0     1                 $d.2
-               0                0      43e     1 .debug_abbrev
-               0                0      2da     1         /tmp/kernel-982336.o:(.debug_abbrev)
+             5e6              5e6      19c     1         /tmp/common-a318ea.o:(.debug_loclists)
+             5e6              5e6        0     1                 $d.2
+             782              782       3b     1         /tmp/vect-b2c071.o:(.debug_loclists)
+             782              782        0     1                 $d.2
+               0                0      5b8     1 .debug_abbrev
+               0                0      318     1         /tmp/kernel-852add.o:(.debug_abbrev)
                0                0        0     1                 $d.6
-             2da              2da      164     1         /tmp/common-232767.o:(.debug_abbrev)
-             2da              2da        0     1                 $d.3
-               0                0      b55     1 .debug_info
-               0                0      8fb     1         /tmp/kernel-982336.o:(.debug_info)
+             318              318      164     1         /tmp/common-a318ea.o:(.debug_abbrev)
+             318              318        0     1                 $d.3
+             47c              47c       21     1         /tmp/vect-1f2bd5.o:(.debug_abbrev)
+             47c              47c        0     1                 $d.2
+             49d              49d       21     1         /tmp/vector_table-0b85f1.o:(.debug_abbrev)
+             49d              49d        0     1                 $d.2
+             4be              4be       fa     1         /tmp/vect-b2c071.o:(.debug_abbrev)
+             4be              4be        0     1                 $d.3
+               0                0     1266     1 .debug_info
+               0                0      c37     1         /tmp/kernel-852add.o:(.debug_info)
                0                0        0     1                 $d.7
-             8fb              8fb      25a     1         /tmp/common-232767.o:(.debug_info)
-             8fb              8fb        0     1                 $d.4
+             c37              c37      25a     1         /tmp/common-a318ea.o:(.debug_info)
+             c37              c37        0     1                 $d.4
+             e91              e91      17b     1         /tmp/vect-1f2bd5.o:(.debug_info)
+             e91              e91        0     1                 $d.3
+            100c             100c       91     1         /tmp/vector_table-0b85f1.o:(.debug_info)
+            100c             100c        0     1                 $d.3
+            109d             109d      1c9     1         /tmp/vect-b2c071.o:(.debug_info)
+            109d             109d        0     1                 $d.4
                0                0      119     1 .debug_rnglists
-               0                0       d1     1         /tmp/kernel-982336.o:(.debug_rnglists)
+               0                0       d1     1         /tmp/kernel-852add.o:(.debug_rnglists)
                0                0        0     1                 $d.8
-              d1               d1       48     1         /tmp/common-232767.o:(.debug_rnglists)
+              d1               d1       48     1         /tmp/common-a318ea.o:(.debug_rnglists)
               d1               d1        0     1                 $d.5
-               0                0      200     1 .debug_str_offsets
-               0                0      148     1         /tmp/kernel-982336.o:(.debug_str_offsets)
+               0                0      31c     1 .debug_str_offsets
+               0                0      204     1         /tmp/kernel-852add.o:(.debug_str_offsets)
                0                0        0     1                 $d.9
-             148              148       b8     1         /tmp/common-232767.o:(.debug_str_offsets)
-             148              148        0     1                 $d.6
-               0                0      36d     1 .debug_str
-               0                0      36d     1         <internal>:(.debug_str)
-               0                0      2d8     1 .debug_addr
-               0                0      268     1         /tmp/kernel-982336.o:(.debug_addr)
+             204              204       b8     1         /tmp/common-a318ea.o:(.debug_str_offsets)
+             204              204        0     1                 $d.6
+             2bc              2bc       60     1         /tmp/vect-b2c071.o:(.debug_str_offsets)
+             2bc              2bc        0     1                 $d.5
+               0                0      4e7     1 .debug_str
+               0                0      4e7     1         <internal>:(.debug_str)
+               0                0      470     1 .debug_addr
+               0                0      338     1         /tmp/kernel-852add.o:(.debug_addr)
                0                0        0     1                 $d.11
-             268              268       70     1         /tmp/common-232767.o:(.debug_addr)
-             268              268        0     1                 $d.8
+             338              338       70     1         /tmp/common-a318ea.o:(.debug_addr)
+             338              338        0     1                 $d.8
+             3a8              3a8       c8     1         /tmp/vect-b2c071.o:(.debug_addr)
+             3a8              3a8        0     1                 $d.7
                0                0       42     1 .comment
                0                0       42     1         <internal>:(.comment)
-               0                0      290     8 .debug_frame
-               0                0      1e8     8         /tmp/kernel-982336.o:(.debug_frame)
+               0                0      3f0     8 .debug_frame
+               0                0      248     8         /tmp/kernel-852add.o:(.debug_frame)
                0                0        0     1                 $d.13
-             1e8              1e8       a8     8         /tmp/common-232767.o:(.debug_frame)
-             1e8              1e8        0     1                 $d.10
-               0                0      6c5     1 .debug_line
-               0                0      4bd     1         /tmp/kernel-982336.o:(.debug_line)
+             248              248       a8     8         /tmp/common-a318ea.o:(.debug_frame)
+             248              248        0     1                 $d.10
+             2f0              2f0      100     8         /tmp/vect-b2c071.o:(.debug_frame)
+             2f0              2f0        0     1                 $d.9
+               0                0      935     1 .debug_line
+               0                0      56d     1         /tmp/kernel-852add.o:(.debug_line)
                0                0        0     1                 $d.14
-             4bd              4bd      208     1         /tmp/common-232767.o:(.debug_line)
-             4bd              4bd        0     1                 $d.11
-               0                0       3f     1 .debug_line_str
-               0                0       3f     1         <internal>:(.debug_line_str)
-               0                0      630     8 .symtab
-               0                0      630     8         <internal>:(.symtab)
-               0                0       ca     1 .shstrtab
-               0                0       ca     1         <internal>:(.shstrtab)
-               0                0      22e     1 .strtab
-               0                0      22e     1         <internal>:(.strtab)
+             56d              56d      208     1         /tmp/common-a318ea.o:(.debug_line)
+             56d              56d        0     1                 $d.11
+             775              775       8e     1         /tmp/vect-1f2bd5.o:(.debug_line)
+             775              775        0     1                 $d.4
+             803              803       92     1         /tmp/vector_table-0b85f1.o:(.debug_line)
+             803              803        0     1                 $d.4
+             895              895       a0     1         /tmp/vect-b2c071.o:(.debug_line)
+             895              895        0     1                 $d.10
+               0                0       5c     1 .debug_line_str
+               0                0       5c     1         <internal>:(.debug_line_str)
+               0                0       60     1 .debug_aranges
+               0                0       30     1         /tmp/vect-1f2bd5.o:(.debug_aranges)
+               0                0        0     1                 $d.1
+              30               30       30     1         /tmp/vector_table-0b85f1.o:(.debug_aranges)
+              30               30        0     1                 $d.1
+               0                0      a80     8 .symtab
+               0                0      a80     8         <internal>:(.symtab)
+               0                0       e2     1 .shstrtab
+               0                0       e2     1         <internal>:(.shstrtab)
+               0                0      3fe     1 .strtab
+               0                0      3fe     1         <internal>:(.strtab)

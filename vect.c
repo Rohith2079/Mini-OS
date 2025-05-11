@@ -3,16 +3,22 @@
 
 void handle_data_abort(uint64_t esr, uint64_t far) {
     // Extract Exception Class (EC) from ESR
+    
     uint64_t ec = (esr >> 26) & 0x3F;
-
+    
     // Extract Data Fault Status Code (DFSC) from ESR
     uint64_t dfsc = esr & 0x3F;
-
-    // Print information (replace with your own UART print function)
+    
+    // Extract Instruction Specific Syndrome
+    uint64_t iss = esr & 0x1FFFFFF;
+    
     printf("Data Abort Exception!\n");
-    printf("ESR_EL1: 0x%x", (unsigned long long)ec);
-    printf("FAR_EL1: 0x%x", (unsigned long long)dfsc);
-
+    printf("ESR_EL1: 0x%x\n", esr);
+    printf("FAR_EL1: 0x%x\n", far);
+    printf("EC: 0x%x\n", ec);
+    printf("DFSC: 0x%x\n", dfsc);
+    printf("ISS: 0x%x\n", iss);
+    PANIC("Data abort exception");
     //while(1);
 }
 

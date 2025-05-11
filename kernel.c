@@ -28,17 +28,60 @@ void putchar(char ch) {
 	uboot_call(0x03, ch, 1, 64);
 }
 
-//__attribute__((naked))
-//void setup_vect(void){
-//	__asm__ __volatile__(
-//				"LDR X0, =_vector_table\n"
-//				"MSR VBAR_EL1, X0\n"
-//				"RET\n"
-//				:
-//				:
-//				:
-//				);
-//}
+__attribute__((naked)) void setup_vect(void)
+{
+    __asm__ __volatile__(
+        "adr X0, _vector_table\n"
+        "MSR VBAR_EL1, X0\n"
+        "isb\n"
+        "RET\n"
+        :
+        :
+        :);
+}
+
+void init_exceptions(void) {
+    uint64_t current_el;
+    __asm__ __volatile__("mrs %0, CurrentEL" : "=r"(current_el));
+    current_el = current_el >> 2;
+    
+    if (current_el != 1) {
+        printf("Warning: Not in EL1 (Current EL: %d)\n", current_el);
+        return;
+    }
+
+    // Setup system registers
+    __asm__ __volatile__(
+        // Set up memory attributes
+        "msr mair_el1, %0\n"
+        // Set up TCR_EL1
+        "msr tcr_el1, %1\n"
+        // Ensure changes are visible
+        "isb\n"
+        :: "r"(MAIR_VALUE), "r"(TCR_VALUE)
+        : "memory"
+    );
+
+    // Setup vector table
+    setup_vect();
+    
+    // Enable MMU and caches
+    uint64_t sctlr;
+    __asm__ __volatile__("mrs %0, sctlr_el1" : "=r"(sctlr));
+    sctlr |= SCTLR_MMU_ENABLE;  // Enable MMU
+    sctlr |= SCTLR_SA;   // Enable SP alignment check
+    sctlr |= SCTLR_I_CACHE;     // Enable I-cache
+    sctlr |= SCTLR_D_CACHE;     // Enable D-cache
+    __asm__ __volatile__(
+        "msr sctlr_el1, %0\n"
+        "isb\n"
+        :: "r"(sctlr)
+        : "memory"
+    );
+
+    printf("Exception handling initialized\n");
+}
+
 
 paddr_t alloc_pages(uint32_t n) {
     static paddr_t next_paddr = (paddr_t) __free_ram;
@@ -392,6 +435,48 @@ struct process *create_process(const void *image, size_t image_size) {
     return proc;
 }
 
+void handle_data_abort(uint64_t, uint64_t);
+
+
+void handle_trap(struct trap_frame *f) {
+    uint64_t esr, far, elr, sp_el0;
+    __asm__ __volatile__(
+        "mrs %0, esr_el1\n"
+        "mrs %1, far_el1\n"
+        "mrs %2, elr_el1\n"
+        "mrs %3, sp_el0"
+        : "=r"(esr), "=r"(far), "=r"(elr), "=r"(sp_el0));
+    
+    uint64_t ec = (esr >> 26) & 0x3F;
+    uint64_t iss = esr & 0x1FFFFFF;
+
+    printf("Trap: EC=0x%x ISS=0x%x ELR=0x%x SP_EL0=0x%x\n", 
+           ec, iss, elr, sp_el0);
+
+    uint64_t ttbr0;
+    __asm__ __volatile__("mrs %0, ttbr0_el1" : "=r"(ttbr0));
+    printf("TTBR0_EL1=0x%lx\n", ttbr0);
+
+    switch (ec) {
+        //case 0x15:  // SVC instruction execution in AArch64
+        //    handle_syscall(f);
+        //    break;
+        case 0x20:  // Instruction abort from lower EL
+        case 0x21:  // Instruction abort from current EL
+        case 0x24:  // Data abort from lower EL
+        case 0x25:  // Data abort from current EL
+            printf("Data/Instruction Abort:\n");
+            printf("  ESR_EL1: 0x%x (EC: 0x%x, ISS: 0x%x)\n", esr, ec, iss);
+            printf("  FAR_EL1: 0x%x\n", far);
+            printf("  ELR_EL1: 0x%x\n", elr);
+            handle_data_abort(esr, far);
+            break;
+        default:
+            printf("Unexpected trap: EC=%x ISS=%x ELR=%x\n", ec, iss, elr);
+            PANIC("unexpected trap");
+    }
+}
+
 
 
 
@@ -409,7 +494,7 @@ void kernel_main(void) {
 	//	printf("s1 == s2\n");
 	//else
 	//	printf("s1 != s2\n");
-	//setup_vect();
+    init_exceptions();
 	//volatile uint32_t *ptr = (uint32_t *)0xDEADBEEF;
 	//*ptr = 42;
 
@@ -427,8 +512,7 @@ void kernel_main(void) {
 	////proc_a_entry();
 	//yield();
 
-    printf("Creating process : A\n");
-	idle_proc = create_process(NULL, 0); // updated!
+    idle_proc = create_process(NULL, 0); // updated!
     idle_proc->pid = 0; // idle
     current_proc = idle_proc;
 

@@ -10,6 +10,6 @@
 //}
 
 void main(void) {
-    //*((volatile int *) 0x40200000) = 0x1234; // new!
+    *((volatile int *) 0x40200000) = 0x1234; // new!
     for (;;);
 }
