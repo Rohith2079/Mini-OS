@@ -10,6 +10,7 @@
 //}
 
 void main(void) {
-    *((volatile int *) 0x40200000) = 0x1234; // new!
+    //putchar('H');
+    printf("Hello World!\n");
     for (;;);
 }

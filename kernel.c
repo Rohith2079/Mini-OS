@@ -1,5 +1,7 @@
 #include "kernel.h"
 #include "common.h"
+#define USER_STACK_TOP (USER_BASE + 0x1000000) // e.g., 2MB above base
+#define USER_STACK_SIZE 0x10000 // 64KB
 typedef unsigned char uint8_t;
 typedef unsigned int uint32_t;
 typedef uint32_t size_t;
@@ -33,10 +35,11 @@ __attribute__((naked)) void setup_vect(void)
     __asm__ __volatile__(
         "adr X0, _vector_table\n"
         "MSR VBAR_EL1, X0\n"
+        "mov sp, %0\n"
         "isb\n"
         "RET\n"
         :
-        :
+        : "r"(0x47010000)
         :);
 }
 
@@ -50,19 +53,14 @@ void init_exceptions(void) {
         return;
     }
 
-    // Setup system registers
     __asm__ __volatile__(
-        // Set up memory attributes
         "msr mair_el1, %0\n"
-        // Set up TCR_EL1
         "msr tcr_el1, %1\n"
-        // Ensure changes are visible
         "isb\n"
         :: "r"(MAIR_VALUE), "r"(TCR_VALUE)
         : "memory"
     );
 
-    // Setup vector table
     setup_vect();
     
     // Enable MMU and caches
@@ -171,60 +169,6 @@ __attribute__((naked)) void switch_context(uint64_t *prev_sp,
 }
 
 struct process procs[PROCS_MAX];
-
-//struct process *create_process(uint64_t pc) {
-//
-//
-//    // Find an unused process control structure.
-//    struct process *proc = NULL;
-//    int i;
-//    for (i = 0; i < PROCS_MAX; i++) {
-//        if (procs[i].state == PROC_UNUSED) {
-//            proc = &procs[i];
-//            break;
-//        }
-//    }
-//
-//
-//    if (!proc)
-//        PANIC("no free process slots");
-//
-//    // Initialize the stack pointer to the top of the stack (aligned)
-//    //uint64_t *sp = (uint64_t *) &proc->stack[sizeof(proc->stack)];
-//	uint64_t *sp = (uint64_t *)((uint64_t)(proc->stack + sizeof(proc->stack)) & ~0xF);
-//
-//
-//    // Push callee-saved registers (x30 down to x19), matching switch_context()
-//    *--sp = pc;   // x30 (lr)
-//    *--sp = 0;    // x29 (fp)
-//    *--sp = 0;    // x28
-//    *--sp = 0;    // x27
-//    *--sp = 0;    // x26
-//    *--sp = 0;    // x25
-//    *--sp = 0;    // x24
-//    *--sp = 0;    // x23
-//    *--sp = 0;    // x22
-//    *--sp = 0;    // x21
-//    *--sp = 0;    // x20
-//    *--sp = 0;    // x19
-//
-//    // Ensure 16-byte alignment
-//    if ((uint64_t)sp % 16 != 0) {
-//        *--sp = 0; // padding
-//    }
-//
-//	uint64_t *page_table = (uint64_t*)alloc_pages(1); //L0 table
-//	memset(page_table, 0, PAGE_SIZE);
-//    for (paddr_t paddr = (paddr_t) __kernel_base; paddr < (paddr_t) __free_ram_end; paddr += PAGE_SIZE) {
-//        map_page(page_table, paddr, paddr, AARCH64_PAGE_READ | AARCH64_PAGE_WRITE | AARCH64_PAGE_EXECUTE);
-//    }
-//
-//    proc->pid = i + 1;
-//    proc->state = PROC_RUNNABLE;
-//    proc->sp = (uint64_t) sp;
-//	proc->page_table = page_table;
-//    return proc;
-//}
 
 void delay(void) {
     for (int i = 0; i < 30000000; i++)
@@ -369,7 +313,6 @@ __attribute__((naked)) void user_entry(void) {
 //}
 
 struct process *create_process(const void *image, size_t image_size) {
-    /* omitted */
     struct process *proc = NULL;
     int i;
     for (i = 0; i < PROCS_MAX; i++) {
@@ -400,11 +343,11 @@ struct process *create_process(const void *image, size_t image_size) {
     *--sp = 0;    // x20
     *--sp = 0;    // x19
 
-    if ((uint64_t)sp % 16 != 0) {
-        *--sp = 0; // padding
+    uint64_t *page_table = (uint64_t *) alloc_pages(1);
+    if ((uint64_t)page_table & (PAGE_SIZE - 1))
+    {
+        PANIC("Page table not aligned");
     }
-
-    uint32_t *page_table = (uint32_t *) alloc_pages(1);
 
     // Map kernel pages.
     for (paddr_t paddr = (paddr_t) __kernel_base;
@@ -414,7 +357,8 @@ struct process *create_process(const void *image, size_t image_size) {
 
 
     // Map user pages.
-    for (uint32_t off = 0; off < image_size; off += PAGE_SIZE) {
+    printf("image_size = %x\n", (int) image_size);
+    for (uint64_t off = 0; off < image_size; off += PAGE_SIZE) {
         paddr_t page = alloc_pages(1);
 
         // Handle the case where the data to be copied is smaller than the
@@ -424,9 +368,21 @@ struct process *create_process(const void *image, size_t image_size) {
 
         // Fill and map the page.
         memcpy((void *) page, image + off, copy_size);
-        map_page(page_table, USER_BASE + off, page, AARCH64_PAGE_USER | AARCH64_PAGE_READ | AARCH64_PAGE_WRITE | AARCH64_PAGE_EXECUTE);
+        map_page(page_table, USER_BASE + off, page, AARCH64_PAGE_READ | AARCH64_PAGE_WRITE);
         //printf("User page mapped: %x -> %x\n", USER_BASE + off, page);
     }
+    //map execption stack
+    paddr_t exception_stack = alloc_pages(1); // 4KB for exception stack
+    map_page(page_table, 0x47000000, exception_stack,
+             AARCH64_PAGE_READ | AARCH64_PAGE_WRITE);
+
+    // Map user stack
+    uint32_t stack_bottom = USER_STACK_TOP - USER_STACK_SIZE;
+    for (uint64_t off = 0; off < USER_STACK_SIZE; off += PAGE_SIZE) {
+        paddr_t page = alloc_pages(1);
+        map_page(page_table, stack_bottom + off, page, AARCH64_PAGE_READ | AARCH64_PAGE_WRITE);
+    }
+
     proc->pid = i + 1;
     proc->state = PROC_RUNNABLE;
     proc->sp = (uint64_t)sp;
@@ -438,7 +394,32 @@ struct process *create_process(const void *image, size_t image_size) {
 void handle_data_abort(uint64_t, uint64_t);
 
 
+void handle_syscall(struct trap_frame *f) {
+    // Our convention: syscall number in x8, argument (char) in x0.
+    //printf("Syscall: x8=%x x0=%x\n", f->X8, f->X0);
+    uint64_t syscall = f->X8;
+    switch (syscall) {
+        case 1: { // putchar syscall
+            char ch = (char) f->X0;
+            f->elr += 4; // Skip the SVC instruction
+            putchar(ch);
+            break;
+        }
+        default:
+            printf("Unknown syscall: %ld\n", syscall);
+            PANIC("unknown syscall");
+    }
+    // Restore the state of the registers
+    __asm__ __volatile__(
+        "msr elr_el1, %0\n"
+        :
+        : "r"(f->elr) // Restore the ELR register
+        : "memory"
+    );
+}
+
 void handle_trap(struct trap_frame *f) {
+    //printf("Stack pointer at trap entry: %x\n", (uint64_t)&f);
     uint64_t esr, far, elr, sp_el0;
     __asm__ __volatile__(
         "mrs %0, esr_el1\n"
@@ -450,17 +431,18 @@ void handle_trap(struct trap_frame *f) {
     uint64_t ec = (esr >> 26) & 0x3F;
     uint64_t iss = esr & 0x1FFFFFF;
 
-    printf("Trap: EC=0x%x ISS=0x%x ELR=0x%x SP_EL0=0x%x\n", 
-           ec, iss, elr, sp_el0);
+    //printf("Trap: EC=0x%x ISS=0x%x ELR=0x%x SP_EL0=0x%x\n", 
+    //       ec, iss, elr, sp_el0);
 
     uint64_t ttbr0;
     __asm__ __volatile__("mrs %0, ttbr0_el1" : "=r"(ttbr0));
-    printf("TTBR0_EL1=0x%lx\n", ttbr0);
+    //printf("TTBR0_EL1=0x%x\n", ttbr0);
 
     switch (ec) {
-        //case 0x15:  // SVC instruction execution in AArch64
-        //    handle_syscall(f);
-        //    break;
+        case 0x15:  // SVC instruction execution in AArch64
+            handle_syscall(f);
+            //PANIC("SVC trap");
+            break;
         case 0x20:  // Instruction abort from lower EL
         case 0x21:  // Instruction abort from current EL
         case 0x24:  // Data abort from lower EL
@@ -536,6 +518,8 @@ __attribute__((section(".text.boot")))
 __attribute__((naked))
 void boot(void) {
     __asm__ __volatile__(
+        "MOV X2, #0\n"
+        "MSR SPSel, X2\n"       // Switch to EL1
 		"MOV SP, %[stack_top]\n"
         "BL kernel_main\n"       // Jump to the kernel main function
         :

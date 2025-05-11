@@ -40,7 +40,8 @@ struct trap_frame {
     uint64_t X30;
     uint64_t spsr;
     uint64_t elr; // Exception Link Register
-} __attribute__((packed));
+//} __attribute__((packed));
+};
 
 #define READ_SYS_REG(reg)                                                          \
     ({                                                                         \
@@ -118,6 +119,7 @@ struct trap_frame {
 //#define SPSR_MASK 0x3C0  // 0b0000001111000000
 
 #define SPSR_MASK (0x0ULL | 0x0 << 2)
+#define SPSR_MASK 0x4 //EL1t
 
 struct process {
     int pid;             // Process ID

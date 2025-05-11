@@ -1,13 +1,32 @@
 #include "user.h"
+#define SYS_PUTCHAR 1
 
-extern char __stack_top[];
+
+extern char __user_stack_top[];
 
 __attribute__((noreturn)) void exit(void) {
     for (;;);
 }
 
+uint64_t syscall(uint64_t sysno, uint64_t arg0, uint64_t arg1, uint64_t arg2) {
+    register uint64_t x0 __asm__("x0") = arg0;
+    register uint64_t x1 __asm__("x1") = arg1;
+    register uint64_t x2 __asm__("x2") = arg2;
+    register uint64_t x8 __asm__("x8") = sysno;
+
+    __asm__ __volatile__(
+        "svc #0\n"
+        : "+r"(x0)
+        : "r"(x1), "r"(x2), "r"(x8)
+        : "memory"
+    );
+
+    return x0;
+}
+
+
 void putchar(char ch) {
-    /* TODO */
+    syscall(SYS_PUTCHAR, ch, 0, 0);
 }
 
 __attribute__((section(".text.start")))
@@ -17,6 +36,6 @@ void start(void) {
         "mov sp, %[stack_top] \n"
         "bl main           \n"
         "bl exit           \n"
-        :: [stack_top] "r" (__stack_top)
+        :: [stack_top] "r" (__user_stack_top)
     );
 }

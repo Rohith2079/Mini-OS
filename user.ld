@@ -22,11 +22,27 @@ SECTIONS {
     /* data that should be zero-filled at startup */
     .bss : ALIGN(4) {
         *(.bss .bss.* .sbss .sbss.*);
-
-        . = ALIGN(16);
-        . += 64 * 1024; /* 64KB */
-        __stack_top = .;
-
-       ASSERT(. < 0x47000000, "too large executable");
     }
+
+    . = 0x47000000;
+    
+    /* Exception stack section */
+    .exception_stack : {
+        . = ALIGN(16);
+        __exception_stack_start = .;
+        . += 4096;  /* 4KB exception stack */
+        __exception_stack_top = .;
+    }
+
+    /* User stack */
+    .user_stack : {
+        . = ALIGN(16);
+        __user_stack_start = .;
+        . += 64 * 1024;  /* 64KB user stack */
+        __user_stack_top = .;
+    }
+
+    ASSERT(. < 0x47f00000, "too large executable")
+
+
 }
