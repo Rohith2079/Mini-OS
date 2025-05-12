@@ -32,15 +32,15 @@ $CC $CFLAGS -Wl,-Tkernel.ld -Wl,-Map=kernel.map -o kernel.elf \
 #qemu-system-aarch64 -M virt -cpu cortex-a57 -nographic -semihosting -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin -serial mon:stdio --no-reboot -device loader,file=kernel.elf,addr=0x40200000
 #qemu-system-aarch64 -M virt -cpu cortex-a57 -nographic -semihosting -bios u-boot.bin -serial mon:stdio --no-reboot -device loader,file=kernel.elf,addr=0x40200000
 
-dd if=lorem.txt of=disk.img bs=512 count=1
+#dd if=lorem.txt of=disk.img bs=512 count=1
 
 qemu-system-aarch64 -M virt -cpu cortex-a57 -nographic -semihosting \
     -bios u-boot.bin \
     -serial mon:stdio --no-reboot \
     -device loader,file=kernel.elf,addr=0x40200000 \
     -d unimp,guest_errors,int,cpu_reset -D qemu.log \
-    -drive if=none,format=raw,file=disk.img,id=hd0 \
-    -device virtio-blk-device,drive=hd0,bus=virtio-mmio-bus.0
-    # -drive id=drive0,file=lorem.txt,format=raw,if=none \
-    # -device virtio-blk-device,drive=drive0,bus=virtio-mmio-bus.0
+    -drive id=drive0,file=lorem.txt,format=raw,if=none \
+    -device virtio-blk-device,drive=drive0,bus=virtio-mmio-bus.0
+    # -drive if=none,format=raw,file=disk.img,id=hd0 \
+    # -device virtio-blk-device,drive=hd0,bus=virtio-mmio-bus.0
 

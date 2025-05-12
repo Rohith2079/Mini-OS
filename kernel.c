@@ -381,6 +381,8 @@ struct process *create_process(const void *image, size_t image_size) {
         map_page(page_table, paddr, paddr, AARCH64_PAGE_READ | AARCH64_PAGE_WRITE | AARCH64_PAGE_EXECUTE);
     printf("Kernel pages mapped\n");
 
+    map_page(page_table, VIRTIO_BLK_PADDR, VIRTIO_BLK_PADDR, AARCH64_PAGE_READ | AARCH64_PAGE_WRITE);
+
 
     // Map user pages.
     printf("image_size = %x\n", (int) image_size);
@@ -410,7 +412,6 @@ struct process *create_process(const void *image, size_t image_size) {
     }
 
     //new
-    map_page(page_table, VIRTIO_BLK_PADDR, VIRTIO_BLK_PADDR, AARCH64_PAGE_READ | AARCH64_PAGE_WRITE);
 
     proc->pid = i + 1;
     proc->state = PROC_RUNNABLE;
@@ -572,6 +573,7 @@ struct virtio_virtq *virtq_init(unsigned index) {
     return vq;
 }
 
+
 void virtio_blk_init(void) {
     printf("Initializing virtio block device...\n");
     
@@ -579,35 +581,16 @@ void virtio_blk_init(void) {
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS, 0);
     __sync_synchronize();
     
-    // Check device ID
-    uint32_t device_id = virtio_reg_read32(VIRTIO_REG_DEVICE_ID);
-    if (device_id != VIRTIO_DEVICE_BLK) {
-        PANIC("Unknown virtio device: %d\n", device_id);
-    }
-    
-    // Set status bits in correct order with synchronization
+    // Set ACKNOWLEDGE status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS, VIRTIO_STATUS_ACK);
-    __sync_synchronize();
     
+    // Set DRIVER status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS, 
-                       VIRTIO_STATUS_ACK | VIRTIO_STATUS_DRIVER);
-    __sync_synchronize();
-
-    // Negotiate features
-    uint32_t features = virtio_reg_read32(VIRTIO_REG_DEVICE_FEATURES);
-    // Accept basic features only
-    uint32_t supported_features = 0;
-    virtio_reg_write32(VIRTIO_REG_DRIVER_FEATURES, supported_features);
-    __sync_synchronize();
+                      virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS) | VIRTIO_STATUS_DRIVER);
     
+    // Set FEATURES_OK status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,
-                       VIRTIO_STATUS_ACK | VIRTIO_STATUS_DRIVER | VIRTIO_STATUS_FEAT_OK);
-    __sync_synchronize();
-
-    // Verify FEATURES_OK is still set
-    if (!(virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS) & VIRTIO_STATUS_FEAT_OK)) {
-        PANIC("Device did not accept features");
-    }
+                      virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS) | VIRTIO_STATUS_FEAT_OK);
     
     // Initialize queue
     blk_request_vq = virtq_init(0);
@@ -615,96 +598,20 @@ void virtio_blk_init(void) {
         PANIC("Failed to initialize virtqueue");
     }
 
-    // Set final DRIVER_OK status bit
+    // Set DRIVER_OK status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,
-                       VIRTIO_STATUS_ACK | VIRTIO_STATUS_DRIVER | 
-                       VIRTIO_STATUS_FEAT_OK | VIRTIO_STATUS_DRIVER_OK);
-    __sync_synchronize();
+                      virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS) | VIRTIO_STATUS_DRIVER_OK);
 
     // Get device capacity
-    blk_capacity = virtio_reg_read64(VIRTIO_REG_DEVICE_CONFIG + 0) * SECTOR_SIZE;
+    blk_capacity = virtio_reg_read64(VIRTIO_REG_DEVICE_CONFIG) * SECTOR_SIZE;
     printf("virtio-blk: capacity is %d bytes\n", blk_capacity);
 
-    // Allocate request buffer with proper alignment
+    // Allocate request buffer
     blk_req_paddr = alloc_pages(align_up(sizeof(*blk_req), PAGE_SIZE) / PAGE_SIZE);
     blk_req = (struct virtio_blk_req *) blk_req_paddr;
     memset(blk_req, 0, sizeof(*blk_req));
 }
 
-// Update read_write_disk function
-void read_write_disk(void *buf, unsigned sector, int is_write) {
-    printf("Starting %s at sector %d\n", is_write ? "write" : "read", sector);
-    
-    struct virtio_virtq *vq = blk_request_vq;
-    uint16_t desc_index = vq->next_avail;
-
-    // Clear previous status
-    blk_req->status = 255;
-    __sync_synchronize();
-    
-    // Setup request header
-    blk_req->type = is_write ? VIRTIO_BLK_T_OUT : VIRTIO_BLK_T_IN;
-    blk_req->reserved = 0;
-    blk_req->sector = sector;
-    
-    if (is_write) {
-        memcpy(blk_req->data, buf, SECTOR_SIZE);
-    }
-    __sync_synchronize();
-
-    // Setup descriptor chain
-    // Header descriptor
-    vq->descs[desc_index].addr = blk_req_paddr + offsetof(struct virtio_blk_req, type);
-    vq->descs[desc_index].len = sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint64_t); // type + reserved + sector
-    vq->descs[desc_index].flags = VIRTQ_DESC_F_NEXT;
-    vq->descs[desc_index].next = desc_index + 1;
-
-    // Data descriptor
-    vq->descs[desc_index + 1].addr = blk_req_paddr + offsetof(struct virtio_blk_req, data);
-    vq->descs[desc_index + 1].len = SECTOR_SIZE;
-    vq->descs[desc_index + 1].flags = VIRTQ_DESC_F_NEXT;
-    if (!is_write) {
-        vq->descs[desc_index + 1].flags |= VIRTQ_DESC_F_WRITE;
-    }
-    vq->descs[desc_index + 1].next = desc_index + 2;
-
-    // Status descriptor
-    vq->descs[desc_index + 2].addr = blk_req_paddr + offsetof(struct virtio_blk_req, status);
-    vq->descs[desc_index + 2].len = sizeof(uint8_t);
-    vq->descs[desc_index + 2].flags = VIRTQ_DESC_F_WRITE;
-    vq->descs[desc_index + 2].next = 0;
-
-    __sync_synchronize();
-
-    // Add to available ring
-    vq->avail.ring[vq->avail.index % VIRTQ_ENTRY_NUM] = desc_index;
-    vq->avail.index++;
-    __sync_synchronize();
-
-    // Notify device
-    virtio_reg_write32(VIRTIO_REG_QUEUE_NOTIFY, vq->queue_index);
-
-    // Wait for completion
-    while (vq->used.ring[vq->last_used_index % VIRTQ_ENTRY_NUM].id != desc_index) {
-        __asm__ volatile("yield");
-    }
-
-    __sync_synchronize();
-    
-    // Check status
-    if (blk_req->status != 0) {
-        printf("virtio: request failed with status %d\n", blk_req->status);
-        return;
-    }
-
-    if (!is_write) {
-        memcpy(buf, blk_req->data, SECTOR_SIZE);
-    }
-
-    // Update indices
-    vq->last_used_index++;
-    vq->next_avail = (desc_index + 3) % VIRTQ_ENTRY_NUM;
-}
 
 
 // of the head descriptor of the new request.
@@ -713,15 +620,133 @@ void virtq_kick(struct virtio_virtq *vq, int desc_index) {
     vq->avail.index++;
     __sync_synchronize();
     virtio_reg_write32(VIRTIO_REG_QUEUE_NOTIFY, vq->queue_index);
-    //vq->last_used_index++;
+    vq->last_used_index++;
 }
 
 // Returns whether there are requests being processed by the device.
 bool virtq_is_busy(struct virtio_virtq *vq) {
-    return vq->last_used_index != vq->used.index;
+    return vq->last_used_index != vq->queue_index;
 }
 
+// Update read_write_disk function
+void read_write_disk(void *buf, unsigned sector, int is_write) {
+    printf("Starting %s at sector %d\n", is_write ? "write" : "read", sector);
+    
+    struct virtio_virtq *vq = blk_request_vq;
+    uint16_t desc_index = vq->next_avail;
+    
+    // Setup request header
+    blk_req->type = is_write ? VIRTIO_BLK_T_OUT : VIRTIO_BLK_T_IN;
+    blk_req->reserved = 0;
+    blk_req->sector = sector;
+    blk_req->status = 255; // Set to non-zero
+    
+    if (is_write) {
+        memcpy(blk_req->data, buf, SECTOR_SIZE);
+    }
 
+    // Setup descriptor chain
+    // Header descriptor
+    vq->descs[desc_index].addr = blk_req_paddr;
+    vq->descs[desc_index].len = 16;  // type + reserved + sector
+    vq->descs[desc_index].flags = VIRTQ_DESC_F_NEXT;
+    vq->descs[desc_index].next = (desc_index + 1) % VIRTQ_ENTRY_NUM;
+
+    // Data descriptor
+    vq->descs[desc_index + 1].addr = blk_req_paddr + offsetof(struct virtio_blk_req, data);
+    vq->descs[desc_index + 1].len = SECTOR_SIZE;
+    vq->descs[desc_index + 1].flags = VIRTQ_DESC_F_NEXT;
+    if (!is_write) {
+        vq->descs[desc_index + 1].flags |= VIRTQ_DESC_F_WRITE;
+    }
+    vq->descs[desc_index + 1].next = (desc_index + 2) % VIRTQ_ENTRY_NUM;
+
+    // Status descriptor
+    vq->descs[desc_index + 2].addr = blk_req_paddr + offsetof(struct virtio_blk_req, status);
+    vq->descs[desc_index + 2].len = 1;
+    vq->descs[desc_index + 2].flags = VIRTQ_DESC_F_WRITE;
+    vq->descs[desc_index + 2].next = 0;
+
+    __sync_synchronize();
+
+    // Add to available ring
+    vq->avail.ring[vq->avail.index % VIRTQ_ENTRY_NUM] = desc_index;
+    __sync_synchronize();
+    vq->avail.index++;
+    
+    // Save current used index
+    uint16_t used_idx = vq->used.index;
+    
+    // Notify device
+    virtio_reg_write32(VIRTIO_REG_QUEUE_NOTIFY, vq->queue_index);
+
+    printf("Waiting for completion (used_idx=%d)...\n", used_idx);
+
+    // Wait for completion
+    while (vq->used.index == used_idx) {
+        __asm__ volatile("yield");
+    }
+
+    // Check status
+    if (blk_req->status != 0) {
+        printf("virtio: request failed with status %d\n", blk_req->status);
+        return;
+    }
+
+    if (!is_write) {
+        memcpy(buf, blk_req->data, SECTOR_SIZE);
+        printf("Read data: %.32s\n", (char*)buf);
+    }
+
+    // Update next available descriptor
+    vq->next_avail = (desc_index + 3) % VIRTQ_ENTRY_NUM;
+}
+
+// void read_write_disk(void *buf, unsigned sector, int is_write) {
+//     if (sector >= blk_capacity / SECTOR_SIZE) {
+//         printf("virtio: tried to read/write sector=%d, but capacity is %d\n",
+//               sector, blk_capacity / SECTOR_SIZE);
+//         return;
+//     }
+
+//     // For 1024 bytes, we need to handle 2 sectors
+//     for (int i = 0; i < 2; i++) {
+//         // Construct the request for each 512-byte sector
+//         blk_req->sector = sector + i;
+//         blk_req->type = is_write ? VIRTIO_BLK_T_OUT : VIRTIO_BLK_T_IN;
+//         if (is_write)
+//             memcpy(blk_req->data, buf + (i * SECTOR_SIZE), SECTOR_SIZE);
+
+//         struct virtio_virtq *vq = blk_request_vq;
+//         vq->descs[0].addr = blk_req_paddr;
+//         vq->descs[0].len = sizeof(uint32_t) * 2 + sizeof(uint64_t);
+//         vq->descs[0].flags = VIRTQ_DESC_F_NEXT;
+//         vq->descs[0].next = 1;
+
+//         vq->descs[1].addr = blk_req_paddr + offsetof(struct virtio_blk_req, data);
+//         vq->descs[1].len = SECTOR_SIZE;
+//         vq->descs[1].flags = VIRTQ_DESC_F_NEXT | (is_write ? 0 : VIRTQ_DESC_F_WRITE);
+//         vq->descs[1].next = 2;
+
+//         vq->descs[2].addr = blk_req_paddr + offsetof(struct virtio_blk_req, status);
+//         vq->descs[2].len = sizeof(uint8_t);
+//         vq->descs[2].flags = VIRTQ_DESC_F_WRITE;
+
+//         virtq_kick(vq, 0);
+
+//         while (virtq_is_busy(vq))
+//             ;
+
+//         if (blk_req->status != 0) {
+//             printf("virtio: warn: failed to read/write sector=%d status=%d\n",
+//                    sector + i, blk_req->status);
+//             return;
+//         }
+
+//         if (!is_write)
+//             memcpy(buf + (i * SECTOR_SIZE), blk_req->data, SECTOR_SIZE);
+//     }
+// }
 
 
 

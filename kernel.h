@@ -131,9 +131,10 @@ struct process {
 
 
 #define SECTOR_SIZE       512
-//#define VIRTQ_ENTRY_NUM   16
+#define VIRTQ_ENTRY_NUM   16
 #define VIRTIO_DEVICE_BLK 2
 #define VIRTIO_BLK_PADDR  0x0a000000
+//#define VIRTIO_BLK_PADDR  0x10001000
 #define VIRTIO_REG_MAGIC         0x00
 #define VIRTIO_REG_VERSION       0x04
 #define VIRTIO_REG_DEVICE_ID     0x08
@@ -157,9 +158,6 @@ struct process {
 #define VIRTIO_BLK_T_OUT 1
 
 // VirtIO Register Definitions
-#define VIRTIO_REG_VENDOR_ID      0x04
-#define VIRTIO_REG_DEVICE_FEATURES 0x10
-#define VIRTIO_REG_DRIVER_FEATURES 0x20
 
 
 // VirtQueue Descriptor Flags
@@ -167,8 +165,6 @@ struct process {
 
 // VirtIO Device IDs
 
-// Other necessary constants if not already defined
-#define VIRTQ_ENTRY_NUM 32
 // Virtqueue Descriptor area entry.
 struct virtq_desc {
     uint64_t addr;
