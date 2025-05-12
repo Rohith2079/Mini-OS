@@ -18,6 +18,928 @@ X26=0000000000000000 X27=0000000000000000 X28=0000000000000000
 X29=0000000000000000 X30=0000000000000000  SP=0000000000000000
 PSTATE=400003c5 -Z-- EL1h
 pflash_write: Unimplemented flash cmd sequence (offset 0000000000000bb8, wcycle 0x0 cmd 0x0 value 0x1)
+virtio_mmio_write: attempt to write guest features with guest_features_sel > 0 in legacy mode
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
+Taking exception 16 [Semihosting call] on CPU 0
+...from EL1 to EL0
+...handling as semihosting call 0x3
 Taking exception 16 [Semihosting call] on CPU 0
 ...from EL1 to EL0
 ...handling as semihosting call 0x3
