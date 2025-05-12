@@ -12,33 +12,12 @@
 void main(void) {
     //putchar('H');
     printf("Hello World!\n");
-    for (;;);
-
-//     while (1) {
-// prompt:
-//         printf("> ");
-//         char cmdline[128];
-//         for (int i = 0;; i++) {
-//             char ch = getchar();
-//             putchar(ch);
-//             if (ch < 32 && ch != '\n' && ch != '\r') {
-//                 continue;
-//             }
-//             if (i == sizeof(cmdline) - 1) {
-//                 printf("command line too long\n");
-//                 goto prompt;
-//             } else if (ch == '\r') {
-//                 printf("\n");
-//                 cmdline[i] = '\0';
-//                 break;
-//             } else {
-//                 cmdline[i] = ch;
-//             }
-//         }
-
-//         if (strcmp(cmdline, "hello") == 0)
-//             printf("Hello world from shell!\n");
-//         else
-//             printf("unknown command: %s\n", cmdline);
-//     }
+    char buf[128];
+    int len = readfile("hello.txt", buf, sizeof(buf));
+    buf[len] = '\0';
+    printf("%s\n", buf);
+    writefile("hello.txt", "Hello from shell!\n", len);
+    __sync_synchronize();
+    __asm__ volatile("dsb sy");
+    for(;;);
 }

@@ -25,14 +25,28 @@ uint64_t syscall(uint64_t sysno, uint64_t arg0, uint64_t arg1, uint64_t arg2) {
     return x0;
 }
 
+int readfile(const char *filename, char *buf, int len) {
+    return syscall(SYS_READFILE, (int) filename, (int) buf, len);
+    for(;;);
+}
+
+int writefile(const char *filename, const char *buf, int len) {
+    return syscall(SYS_WRITEFILE, (int) filename, (int) buf, len);
+}
+
 
 void putchar(char ch) {
     syscall(SYS_PUTCHAR, ch, 0, 0);
+    return;
 }
+
+
 
 int getchar(void) {
     return syscall(SYS_GETCHAR, 0, 0, 0);
 }
+
+
 
 __attribute__((section(".text.start")))
 __attribute__((naked))

@@ -423,16 +423,35 @@ struct process *create_process(const void *image, size_t image_size) {
 
 void handle_data_abort(uint64_t, uint64_t);
 
+struct file files[FILES_MAX];
+uint8_t disk[DISK_MAX_SIZE];
+
+void fs_flush(void);
+
+struct file *fs_lookup(const char *filename) {
+    for (int i = 0; i < FILES_MAX; i++) {
+        struct file *file = &files[i];
+        printf("fs_lookup: %d %s\n", i, file->name);
+        printf("fs_lookup: %s\n", filename);
+        if (!strcmp(file->name, filename)){
+            printf("fs_lookup: found %s\n", filename);
+            return file;
+        }
+    }
+
+    return NULL;
+}
+
 void handle_syscall(struct trap_frame *f) {
     // Our convention: syscall number in x8, argument (char) in x0.
     //printf("Syscall: x8=%x x0=%x\n", f->X8, f->X0);
     uint64_t syscall = f->X8;
-    f->elr += 4; // Skip the SVC instruction
     switch (syscall) {
         case 1: { // putchar syscall
             char ch = (char) f->X0;
             //f->elr += 4; // Skip the SVC instruction
             putchar(ch);
+            f->elr += 4; // Skip the SVC instruction
             break;
         }
         case 2:
@@ -456,6 +475,37 @@ void handle_syscall(struct trap_frame *f) {
             }
 
             f->X0 = (uint64_t)-1; // Return -1 if no character available
+            break;
+        }
+        case SYS_READFILE:
+        case SYS_WRITEFILE: {
+            const char *filename = (const char *) f->X0;
+            char *buf = (char *) f->X1;
+            int len = f->X2;
+            struct file *file = fs_lookup(filename);
+            printf("handle_syscall: %s %s %d %d\n", file->name, file->data, file->size, file->in_use);
+            if (!file) {
+                printf("file not found: %s\n", filename);
+                f->X0 = -1;
+                break;
+            }
+            printf("getting len %d\n", len);
+
+            if (len > (int) sizeof(file->data))
+                len = file->size;
+
+            if (syscall == SYS_WRITEFILE) {
+                printf("Writing to file: %s\n", filename);
+                memcpy(file->data, buf, len);
+                file->size = len;
+                fs_flush();
+            } else {
+                memcpy(buf, file->data, len);
+            }
+
+            f->X0 = len;
+            printf("handle_syscall: %s %s %d %d\n", file->name, file->data, file->size, file->in_use);
+            printf("handle_syscall: done\n");
             break;
         }
         default:
@@ -799,8 +849,6 @@ void read_write_disk(void *buf, unsigned sector, int is_write) {
 //     }
 // }
 
-struct file files[FILES_MAX];
-uint8_t disk[DISK_MAX_SIZE];
 
 int oct2int(char *oct, int len) {
     int dec = 0;
@@ -923,14 +971,6 @@ void kernel_main(void) {
     idle_proc->pid = 0; // idle
     current_proc = idle_proc;
 
-    // // new!
-    // printf("Creating process : user\n");
-    // create_process(_binary_shell_bin_start, (size_t) _binary_shell_bin_size);
-    // printf("Created process user\n");
-
-    // printf("yielding to user process\n");
-	// yield();
-    // printf("yield done\n");
 
     virtio_blk_init(); 
     //char buf[SECTOR_SIZE];
@@ -941,6 +981,15 @@ void kernel_main(void) {
     //read_write_disk(buf, 0, true /* write to the disk */);
 
     fs_init();
+
+    // new!  
+    printf("Creating process : user\n");
+    create_process(_binary_shell_bin_start, (size_t) _binary_shell_bin_size);
+    printf("Created process user\n");
+
+    printf("yielding to user process\n");
+	yield();
+    printf("yield done\n");
 
 	PANIC("booted\n");
 	printf("unreachable here\n");

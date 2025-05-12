@@ -1,28 +1,30 @@
              VMA              LMA     Size Align Out     In      Symbol
                0                0 46000000     1 . = 0x46000000
-        46000000         46000000      484     4 .text
-        46000000         46000000       14     4         /tmp/user-4cb74e.o:(.text.start)
+        46000000         46000000      510     4 .text
+        46000000         46000000       14     4         /tmp/user-9a05e6.o:(.text.start)
         46000000         46000000        0     1                 $x.1
         46000000         46000000       14     1                 start
-        46000014         46000014       18     4         /tmp/shell-f2ef7c.o:(.text)
+        46000014         46000014       74     4         /tmp/shell-8d16d1.o:(.text)
         46000014         46000014        0     1                 $x.0
-        46000014         46000014       18     1                 main
-        4600002c         4600002c       54     4         /tmp/user-4cb74e.o:(.text)
-        4600002c         4600002c        0     1                 $x.0
-        4600002c         4600002c        4     1                 exit
-        46000030         46000030       20     1                 syscall
-        46000050         46000050       18     1                 putchar
-        46000068         46000068       18     1                 getchar
-        46000080         46000080      404     4         /tmp/common-21182f.o:(.text)
-        46000080         46000080        0     1                 $x.0
-        46000080         46000080       c8     1                 memcpy
-        46000148         46000148       a0     1                 memset
-        460001e8         460001e8       28     1                 strcpy
-        46000210         46000210       30     1                 strcmp
-        46000240         46000240      244     1                 printf
-        46000484         46000484       1f     4 .rodata
-        46000484         46000484       1f     1         <internal>:(.rodata.str1.1)
-        460004a3         460004a3   fffb5d     1 . = 0x47000000
+        46000014         46000014       74     1                 main
+        46000088         46000088       84     4         /tmp/user-9a05e6.o:(.text)
+        46000088         46000088        0     1                 $x.0
+        46000088         46000088        4     1                 exit
+        4600008c         4600008c       20     1                 syscall
+        460000ac         460000ac       18     1                 readfile
+        460000c4         460000c4       18     1                 writefile
+        460000dc         460000dc       18     1                 putchar
+        460000f4         460000f4       18     1                 getchar
+        4600010c         4600010c      404     4         /tmp/common-086ebb.o:(.text)
+        4600010c         4600010c        0     1                 $x.0
+        4600010c         4600010c       c8     1                 memcpy
+        460001d4         460001d4       a0     1                 memset
+        46000274         46000274       28     1                 strcpy
+        4600029c         4600029c       30     1                 strcmp
+        460002cc         460002cc      244     1                 printf
+        46000510         46000510       40     4 .rodata
+        46000510         46000510       40     1         <internal>:(.rodata.str1.1)
+        46000550         46000550   fffab0     1 . = 0x47000000
         47000000         47000000     1000     1 .exception_stack
         47000000         47000000        0     1         . = ALIGN ( 16 )
         47000000         47000000        0     1         __exception_stack_start = .
@@ -34,67 +36,69 @@
         47001000         47001000    10000     1         . += 64 * 1024
         47011000         47011000        0     1         __user_stack_top = .
         47011000         47011000        0     1 
-               0                0      320     1 .debug_abbrev
-               0                0       96     1         /tmp/shell-f2ef7c.o:(.debug_abbrev)
+               0                0      40d     1 .debug_loclists
+               0                0       16     1         /tmp/shell-8d16d1.o:(.debug_loclists)
                0                0        0     1                 $d.2
-              96               96      126     1         /tmp/user-4cb74e.o:(.debug_abbrev)
-              96               96        0     1                 $d.3
-             1bc              1bc      164     1         /tmp/common-21182f.o:(.debug_abbrev)
-             1bc              1bc        0     1                 $d.3
-               0                0      434     1 .debug_info
-               0                0       69     1         /tmp/shell-f2ef7c.o:(.debug_info)
+              16               16      25b     1         /tmp/user-9a05e6.o:(.debug_loclists)
+              16               16        0     1                 $d.2
+             271              271      19c     1         /tmp/common-086ebb.o:(.debug_loclists)
+             271              271        0     1                 $d.2
+               0                0      374     1 .debug_abbrev
+               0                0       dc     1         /tmp/shell-8d16d1.o:(.debug_abbrev)
                0                0        0     1                 $d.3
-              69               69      171     1         /tmp/user-4cb74e.o:(.debug_info)
-              69               69        0     1                 $d.4
-             1da              1da      25a     1         /tmp/common-21182f.o:(.debug_info)
-             1da              1da        0     1                 $d.4
-               0                0      138     1 .debug_str_offsets
-               0                0       24     1         /tmp/shell-f2ef7c.o:(.debug_str_offsets)
+              dc               dc      134     1         /tmp/user-9a05e6.o:(.debug_abbrev)
+              dc               dc        0     1                 $d.3
+             210              210      164     1         /tmp/common-086ebb.o:(.debug_abbrev)
+             210              210        0     1                 $d.3
+               0                0      5e6     1 .debug_info
+               0                0      142     1         /tmp/shell-8d16d1.o:(.debug_info)
                0                0        0     1                 $d.4
-              24               24       5c     1         /tmp/user-4cb74e.o:(.debug_str_offsets)
-              24               24        0     1                 $d.6
-              80               80       b8     1         /tmp/common-21182f.o:(.debug_str_offsets)
-              80               80        0     1                 $d.6
-               0                0      1d4     1 .debug_str
-               0                0      1d4     1         <internal>:(.debug_str)
-               0                0       c0     1 .debug_addr
-               0                0       20     1         /tmp/shell-f2ef7c.o:(.debug_addr)
-               0                0        0     1                 $d.6
-              20               20       30     1         /tmp/user-4cb74e.o:(.debug_addr)
-              20               20        0     1                 $d.8
-              50               50       70     1         /tmp/common-21182f.o:(.debug_addr)
+             142              142      24a     1         /tmp/user-9a05e6.o:(.debug_info)
+             142              142        0     1                 $d.4
+             38c              38c      25a     1         /tmp/common-086ebb.o:(.debug_info)
+             38c              38c        0     1                 $d.4
+               0                0      160     1 .debug_str_offsets
+               0                0       38     1         /tmp/shell-8d16d1.o:(.debug_str_offsets)
+               0                0        0     1                 $d.5
+              38               38       70     1         /tmp/user-9a05e6.o:(.debug_str_offsets)
+              38               38        0     1                 $d.6
+              a8               a8       b8     1         /tmp/common-086ebb.o:(.debug_str_offsets)
+              a8               a8        0     1                 $d.6
+               0                0      1f4     1 .debug_str
+               0                0      1f4     1         <internal>:(.debug_str)
+               0                0      100     1 .debug_addr
+               0                0       50     1         /tmp/shell-8d16d1.o:(.debug_addr)
+               0                0        0     1                 $d.7
+              50               50       40     1         /tmp/user-9a05e6.o:(.debug_addr)
               50               50        0     1                 $d.8
+              90               90       70     1         /tmp/common-086ebb.o:(.debug_addr)
+              90               90        0     1                 $d.8
                0                0       42     1 .comment
                0                0       42     1         <internal>:(.comment)
-               0                0      170     8 .debug_frame
-               0                0       38     8         /tmp/shell-f2ef7c.o:(.debug_frame)
-               0                0        0     1                 $d.8
-              38               38       90     8         /tmp/user-4cb74e.o:(.debug_frame)
-              38               38        0     1                 $d.10
-              c8               c8       a8     8         /tmp/common-21182f.o:(.debug_frame)
-              c8               c8        0     1                 $d.10
-               0                0      32e     1 .debug_line
-               0                0       76     1         /tmp/shell-f2ef7c.o:(.debug_line)
+               0                0      1a8     8 .debug_frame
+               0                0       40     8         /tmp/shell-8d16d1.o:(.debug_frame)
                0                0        0     1                 $d.9
-              76               76       b0     1         /tmp/user-4cb74e.o:(.debug_line)
-              76               76        0     1                 $d.11
-             126              126      208     1         /tmp/common-21182f.o:(.debug_line)
-             126              126        0     1                 $d.11
-               0                0       40     1 .debug_line_str
-               0                0       40     1         <internal>:(.debug_line_str)
-               0                0      2b8     1 .debug_loclists
-               0                0      11c     1         /tmp/user-4cb74e.o:(.debug_loclists)
-               0                0        0     1                 $d.2
-             11c              11c      19c     1         /tmp/common-21182f.o:(.debug_loclists)
-             11c              11c        0     1                 $d.2
-               0                0       6c     1 .debug_rnglists
-               0                0       24     1         /tmp/user-4cb74e.o:(.debug_rnglists)
+              40               40       c0     8         /tmp/user-9a05e6.o:(.debug_frame)
+              40               40        0     1                 $d.10
+             100              100       a8     8         /tmp/common-086ebb.o:(.debug_frame)
+             100              100        0     1                 $d.10
+               0                0      384     1 .debug_line
+               0                0       9a     1         /tmp/shell-8d16d1.o:(.debug_line)
+               0                0        0     1                 $d.10
+              9a               9a       e2     1         /tmp/user-9a05e6.o:(.debug_line)
+              9a               9a        0     1                 $d.11
+             17c              17c      208     1         /tmp/common-086ebb.o:(.debug_line)
+             17c              17c        0     1                 $d.11
+               0                0       47     1 .debug_line_str
+               0                0       47     1         <internal>:(.debug_line_str)
+               0                0       87     1 .debug_rnglists
+               0                0       3f     1         /tmp/user-9a05e6.o:(.debug_rnglists)
                0                0        0     1                 $d.5
-              24               24       48     1         /tmp/common-21182f.o:(.debug_rnglists)
-              24               24        0     1                 $d.5
-               0                0      540     8 .symtab
-               0                0      540     8         <internal>:(.symtab)
+              3f               3f       48     1         /tmp/common-086ebb.o:(.debug_rnglists)
+              3f               3f        0     1                 $d.5
+               0                0      588     8 .symtab
+               0                0      588     8         <internal>:(.symtab)
                0                0       dc     1 .shstrtab
                0                0       dc     1         <internal>:(.shstrtab)
-               0                0      176     1 .strtab
-               0                0      176     1         <internal>:(.strtab)
+               0                0      18f     1 .strtab
+               0                0      18f     1         <internal>:(.strtab)
