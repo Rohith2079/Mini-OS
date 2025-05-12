@@ -541,6 +541,7 @@ struct virtio_virtq *virtq_init(unsigned index) {
     // Select the queue
     virtio_reg_write32(VIRTIO_REG_QUEUE_SEL, index);
     __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
     
     uint32_t max_queue_size = virtio_reg_read32(VIRTIO_REG_QUEUE_NUM_MAX);
     printf("Max queue size: %d\n", max_queue_size);
@@ -557,6 +558,8 @@ struct virtio_virtq *virtq_init(unsigned index) {
 
     // Set queue size
     virtio_reg_write32(VIRTIO_REG_QUEUE_NUM, VIRTQ_ENTRY_NUM);
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
     
     // Initialize queue fields
     vq->queue_index = index;
@@ -564,10 +567,12 @@ struct virtio_virtq *virtq_init(unsigned index) {
     vq->last_used_index = 0;
     
     __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
 
     // Write queue physical address
     virtio_reg_write32(VIRTIO_REG_QUEUE_PFN, virtq_paddr >> 12);
     __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
 
     printf("virtqueue %d initialized at paddr 0x%lx\n", index, virtq_paddr);
     return vq;
@@ -580,17 +585,26 @@ void virtio_blk_init(void) {
     // Reset device
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS, 0);
     __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
+
+    for(volatile int i=0; i<2000000; i++); // Wait for device to reset
     
     // Set ACKNOWLEDGE status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS, VIRTIO_STATUS_ACK);
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
     
     // Set DRIVER status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS, 
                       virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS) | VIRTIO_STATUS_DRIVER);
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
     
     // Set FEATURES_OK status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,
                       virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS) | VIRTIO_STATUS_FEAT_OK);
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
     
     // Initialize queue
     blk_request_vq = virtq_init(0);
@@ -601,6 +615,8 @@ void virtio_blk_init(void) {
     // Set DRIVER_OK status bit
     virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS,
                       virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS) | VIRTIO_STATUS_DRIVER_OK);
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
 
     // Get device capacity
     blk_capacity = virtio_reg_read64(VIRTIO_REG_DEVICE_CONFIG) * SECTOR_SIZE;
@@ -610,6 +626,8 @@ void virtio_blk_init(void) {
     blk_req_paddr = alloc_pages(align_up(sizeof(*blk_req), PAGE_SIZE) / PAGE_SIZE);
     blk_req = (struct virtio_blk_req *) blk_req_paddr;
     memset(blk_req, 0, sizeof(*blk_req));
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
 }
 
 
@@ -619,6 +637,7 @@ void virtq_kick(struct virtio_virtq *vq, int desc_index) {
     vq->avail.ring[vq->avail.index % VIRTQ_ENTRY_NUM] = desc_index;
     vq->avail.index++;
     __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
     virtio_reg_write32(VIRTIO_REG_QUEUE_NOTIFY, vq->queue_index);
     vq->last_used_index++;
 }
@@ -652,6 +671,9 @@ void read_write_disk(void *buf, unsigned sector, int is_write) {
     vq->descs[desc_index].flags = VIRTQ_DESC_F_NEXT;
     vq->descs[desc_index].next = (desc_index + 1) % VIRTQ_ENTRY_NUM;
 
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
+
     // Data descriptor
     vq->descs[desc_index + 1].addr = blk_req_paddr + offsetof(struct virtio_blk_req, data);
     vq->descs[desc_index + 1].len = SECTOR_SIZE;
@@ -668,10 +690,12 @@ void read_write_disk(void *buf, unsigned sector, int is_write) {
     vq->descs[desc_index + 2].next = 0;
 
     __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
 
     // Add to available ring
     vq->avail.ring[vq->avail.index % VIRTQ_ENTRY_NUM] = desc_index;
     __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
     vq->avail.index++;
     
     // Save current used index
@@ -679,12 +703,40 @@ void read_write_disk(void *buf, unsigned sector, int is_write) {
     
     // Notify device
     virtio_reg_write32(VIRTIO_REG_QUEUE_NOTIFY, vq->queue_index);
+    __sync_synchronize();
+    __asm__ __volatile__("dsb sy");
+
 
     printf("Waiting for completion (used_idx=%d)...\n", used_idx);
 
     // Wait for completion
-    while (vq->used.index == used_idx) {
-        __asm__ volatile("yield");
+    // while (vq->used.index == used_idx) {
+    //     __asm__ __volatile__("nop");
+    // }
+
+    int timeout = 1000000; // Adjust this value based on your needs
+    while (vq->used.index == used_idx && timeout > 0) {
+        __sync_synchronize();
+        timeout--;
+        if (timeout % 100000 == 0) {
+            // Check device status periodically
+            uint32_t status = virtio_reg_read32(VIRTIO_REG_DEVICE_STATUS);
+            if (!(status & VIRTIO_STATUS_DRIVER_OK)) {
+                printf("virtio: device not ready (status=%x)\n", status);
+                // Try to recover
+                virtio_reg_write32(VIRTIO_REG_QUEUE_NOTIFY, vq->queue_index);
+                __sync_synchronize();
+            }
+        }
+    }
+
+    if (timeout <= 0) {
+        printf("virtio: operation timed out\n");
+        // Reset the device
+        virtio_reg_write32(VIRTIO_REG_DEVICE_STATUS, 0);
+        __sync_synchronize();
+        virtio_blk_init(); // Reinitialize the device
+        return;
     }
 
     // Check status
@@ -695,7 +747,7 @@ void read_write_disk(void *buf, unsigned sector, int is_write) {
 
     if (!is_write) {
         memcpy(buf, blk_req->data, SECTOR_SIZE);
-        printf("Read data: %.32s\n", (char*)buf);
+        printf("Read data: %s\n", (char*)buf);
     }
 
     // Update next available descriptor
